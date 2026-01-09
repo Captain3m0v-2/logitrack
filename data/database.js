@@ -18,6 +18,7 @@ class LogisticsDatabase {
                         password: 'password123',
                         role: 'Admin',
                         status: 'active',
+                        approval: 'approved',
                         lastLogin: new Date().toISOString()
                     },
                     {
@@ -27,6 +28,7 @@ class LogisticsDatabase {
                         password: 'password123',
                         role: 'Manager',
                         status: 'active',
+                        approval: 'approved',
                         lastLogin: new Date(Date.now() - 3600000).toISOString()
                     },
                     {
@@ -36,6 +38,7 @@ class LogisticsDatabase {
                         password: 'password123',
                         role: 'Driver',
                         status: 'active',
+                        approval: 'approved',
                         lastLogin: new Date(Date.now() - 7200000).toISOString()
                     },
                     {
@@ -45,6 +48,7 @@ class LogisticsDatabase {
                         password: 'password123',
                         role: 'Office Employee',
                         status: 'active',
+                        approval: 'approved',
                         lastLogin: new Date().toISOString()
                     }
                 ],

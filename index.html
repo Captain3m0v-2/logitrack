@@ -57,17 +57,10 @@
                     <label>Password</label>
                     <input type="password" id="signupPassword" required>
                 </div>
-                <div class="form-group">
-                    <label>Role</label>
-                    <select id="signupRole" required>
-                        <option>Admin</option>
-                        <option>Manager</option>
-                        <option>Office Employee</option>
-                        <option>Driver</option>
-                        <option>Warehouse Staff</option>
-                    </select>
+                <div class="form-group" style="background: #f0f0f0; padding: 12px; border-radius: 6px; margin-bottom: 20px;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #666;"><i class="fas fa-info-circle"></i> Your account will be reviewed by admin for approval.</p>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                <button type="submit" class="btn btn-primary btn-block">Request Account</button>
                 <button type="button" class="btn btn-secondary btn-block" onclick="switchToLogin()">Back to Login</button>
             </form>
         </div>
@@ -401,12 +394,20 @@
                 <div class="page-section" id="usersSection">
                     <div class="page-header">
                         <h1>User Management</h1>
-                        <button class="btn btn-primary" onclick="openUserModal()">
-                            <i class="fas fa-plus"></i> Add User
+                    </div>
+
+                    <!-- Tabs -->
+                    <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0;">
+                        <button class="btn btn-secondary" onclick="switchUserTab('approved')" id="approvedTab" style="background-color: #4361ee; border: none;">
+                            <i class="fas fa-check"></i> Approved Users
+                        </button>
+                        <button class="btn btn-secondary" onclick="switchUserTab('pending')" id="pendingTab" style="border: none;">
+                            <i class="fas fa-clock"></i> Pending Approvals <span id="pendingCount" style="background: #dc2f02; color: white; padding: 2px 8px; border-radius: 12px; margin-left: 5px;">0</span>
                         </button>
                     </div>
 
-                    <div class="data-card">
+                    <!-- Approved Users Table -->
+                    <div id="approvedUsersDiv" class="data-card">
                         <table class="data-table">
                             <thead>
                                 <tr>
@@ -418,7 +419,24 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="usersTable"></tbody>
+                            <tbody id="approvedUsersTable"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pending Approvals Table -->
+                    <div id="pendingUsersDiv" class="data-card" style="display: none;">
+                        <h3>Pending Account Approvals</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Applied Date</th>
+                                    <th>Assign Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pendingUsersTable"></tbody>
                         </table>
                     </div>
                 </div>

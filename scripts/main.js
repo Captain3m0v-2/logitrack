@@ -21,6 +21,12 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
 
     const user = db.getUserByEmail(email);
     if (user && user.password === password) {
+        // Check if account is approved
+        if (user.approval !== 'approved') {
+            showNotification('Your account is pending approval by admin', 'error');
+            return;
+        }
+        
         currentUser = user;
         user.lastLogin = new Date().toISOString();
         db.saveDatabase(db.getDatabase());
@@ -37,7 +43,6 @@ document.getElementById('signupForm').addEventListener('submit', (e) => {
     const name = document.getElementById('signupName').value;
     const email = document.getElementById('signupEmail').value;
     const password = document.getElementById('signupPassword').value;
-    const role = document.getElementById('signupRole').value;
 
     if (db.getUserByEmail(email)) {
         showNotification('Email already registered', 'error');
@@ -48,14 +53,14 @@ document.getElementById('signupForm').addEventListener('submit', (e) => {
         name,
         email,
         password,
-        role,
-        status: 'active'
+        role: 'Employee', // Default role, admin will assign proper role
+        status: 'active',
+        approval: 'pending' // Account requires admin approval
     };
 
     db.addUser(newUser);
-    currentUser = newUser;
-    showDashboard();
-    showNotification('Account created successfully!');
+    switchToLogin();
+    showNotification('Account created! Waiting for admin approval.', 'success');
 });
 
 function logout() {
@@ -709,38 +714,105 @@ function loadAnalytics() {
 }
 
 // ===== USERS PAGE =====
-function loadUsers() {
-    const users = db.getUsers();
-    const tbody = document.getElementById('usersTable');
-    tbody.innerHTML = '';
+// ===== USERS PAGE (WITH APPROVAL SYSTEM) =====
+let userTab = 'approved'; // Track current tab
 
-    users.forEach(user => {
+function loadUsers() {
+    // Only show this for Admin
+    if (currentUser.role !== 'Admin') {
+        return;
+    }
+
+    const users = db.getUsers();
+    
+    // Load approved users
+    const approvedUsers = users.filter(u => u.approval === 'approved');
+    const approvedTbody = document.getElementById('approvedUsersTable');
+    approvedTbody.innerHTML = '';
+
+    approvedUsers.forEach(user => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td><strong>${user.name}</strong></td>
             <td>${user.email}</td>
             <td>${user.role}</td>
             <td><span class="status-badge status-${user.status}">${user.status.toUpperCase()}</span></td>
-            <td>${new Date(user.lastLogin).toLocaleDateString()}</td>
+            <td>${new Date(user.lastLogin || new Date()).toLocaleDateString()}</td>
             <td>
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="deleteUserRecord('${user.email}')"><i class="fas fa-trash"></i></button>
             </td>
         `;
-        tbody.appendChild(row);
+        approvedTbody.appendChild(row);
+    });
+
+    // Load pending users
+    const pendingUsers = users.filter(u => u.approval === 'pending');
+    const pendingTbody = document.getElementById('pendingUsersTable');
+    pendingTbody.innerHTML = '';
+    
+    document.getElementById('pendingCount').textContent = pendingUsers.length;
+
+    pendingUsers.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>${user.name}</strong></td>
+            <td>${user.email}</td>
+            <td>${new Date().toLocaleDateString()}</td>
+            <td>
+                <select class="form-control" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 150px;">
+                    <option>Select Role</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Office Employee">Office Employee</option>
+                    <option value="Driver">Driver</option>
+                    <option value="Warehouse Staff">Warehouse Staff</option>
+                </select>
+            </td>
+            <td>
+                <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="approveUser('${user.email}', event)"><i class="fas fa-check"></i> Approve</button>
+                <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="rejectUser('${user.email}')"><i class="fas fa-times"></i> Reject</button>
+            </td>
+        `;
+        pendingTbody.appendChild(row);
     });
 }
 
-function openUserModal() {
-    document.getElementById('userModal').classList.add('active');
+function switchUserTab(tab) {
+    userTab = tab;
+    document.getElementById('approvedTab').style.backgroundColor = tab === 'approved' ? '#4361ee' : '#ccc';
+    document.getElementById('pendingTab').style.backgroundColor = tab === 'pending' ? '#4361ee' : '#ccc';
+    
+    document.getElementById('approvedUsersDiv').style.display = tab === 'approved' ? 'block' : 'none';
+    document.getElementById('pendingUsersDiv').style.display = tab === 'pending' ? 'block' : 'none';
 }
 
-function deleteUserRecord(email) {
-    if (confirm('Are you sure you want to delete this user?')) {
+function approveUser(email, event) {
+    const roleSelect = event.target.closest('tr').querySelector('select');
+    const role = roleSelect.value;
+
+    if (role === 'Select Role') {
+        showNotification('Please select a role', 'error');
+        return;
+    }
+
+    const db_data = db.getDatabase();
+    const user = db_data.users.find(u => u.email === email);
+    if (user) {
+        user.approval = 'approved';
+        user.role = role;
+        db.saveDatabase(db_data);
+        loadUsers();
+        showNotification(`User approved as ${role}!`);
+    }
+}
+
+function rejectUser(email) {
+    if (confirm('Reject this account request?')) {
         const db_data = db.getDatabase();
         db_data.users = db_data.users.filter(u => u.email !== email);
         db.saveDatabase(db_data);
         loadUsers();
-        showNotification('User deleted successfully!');
+        showNotification('Account request rejected!');
     }
 }
 
