@@ -1,0 +1,123 @@
+<header class="header">
+    <h1>User Management</h1>
+    <div class="user-controls">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search users..." id="userSearch">
+        </div>
+        <button class="btn-primary" id="addUserBtn">
+            <i class="fas fa-user-plus"></i> Add User
+        </button>
+        <button class="btn-secondary" id="filterUsers">
+            <i class="fas fa-filter"></i> Filter
+        </button>
+    </div>
+</header>
+
+<section class="users-stats">
+    <div class="user-stat-card">
+        <div class="user-stat-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="user-stat-content">
+            <h3>1,842</h3>
+            <p>Total Users</p>
+        </div>
+    </div>
+    <div class="user-stat-card">
+        <div class="user-stat-icon">
+            <i class="fas fa-user-check"></i>
+        </div>
+        <div class="user-stat-content">
+            <h3>1,245</h3>
+            <p>Active Today</p>
+        </div>
+    </div>
+    <div class="user-stat-card">
+        <div class="user-stat-icon">
+            <i class="fas fa-user-plus"></i>
+        </div>
+        <div class="user-stat-content">
+            <h3>+124</h3>
+            <p>New This Week</p>
+        </div>
+    </div>
+    <div class="user-stat-card">
+        <div class="user-stat-icon">
+            <i class="fas fa-user-clock"></i>
+        </div>
+        <div class="user-stat-content">
+            <h3>3.2%</h3>
+            <p>Churn Rate</p>
+        </div>
+    </div>
+</section>
+
+<div class="users-container">
+    <div class="users-table-container">
+        <div class="table-header">
+            <h3>All Users</h3>
+            <div class="table-actions">
+                <select id="userRoleFilter">
+                    <option value="all">All Roles</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                    <option value="moderator">Moderator</option>
+                </select>
+            </div>
+        </div>
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="selectAll">
+                    </th>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Last Active</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="usersTableBody">
+                <!-- Populated by JavaScript -->
+            </tbody>
+        </table>
+        <div class="table-footer">
+            <div class="pagination">
+                <button class="pagination-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="page-info">Page 1 of 5</span>
+                <button class="pagination-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="items-per-page">
+                <span>Items per page:</span>
+                <select>
+                    <option>10</option>
+                    <option selected>25</option>
+                    <option>50</option>
+                    <option>100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-details-sidebar">
+        <div class="sidebar-header">
+            <h3>User Details</h3>
+            <button class="btn-icon" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="user-details-content" id="userDetails">
+            <div class="no-selection">
+                <i class="fas fa-user"></i>
+                <p>Select a user to view details</p>
+            </div>
+        </div>
+    </div>
+</div>

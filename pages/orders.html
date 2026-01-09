@@ -1,0 +1,114 @@
+<header class="header">
+    <h1>Order Management</h1>
+    <div class="order-controls">
+        <div class="date-range">
+            <input type="date" id="startDate">
+            <span>to</span>
+            <input type="date" id="endDate">
+        </div>
+        <select id="orderStatusFilter">
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="processing">Processing</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+        </select>
+        <button class="btn-primary" id="createOrder">
+            <i class="fas fa-plus"></i> New Order
+        </button>
+    </div>
+</header>
+
+<section class="order-stats">
+    <div class="order-stat-card">
+        <div class="order-stat-icon">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+        <div class="order-stat-content">
+            <h3>324</h3>
+            <p>Total Orders</p>
+            <span class="stat-change positive">+12%</span>
+        </div>
+    </div>
+    <div class="order-stat-card">
+        <div class="order-stat-icon">
+            <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="order-stat-content">
+            <h3>$24,580</h3>
+            <p>Total Revenue</p>
+            <span class="stat-change positive">+18%</span>
+        </div>
+    </div>
+    <div class="order-stat-card">
+        <div class="order-stat-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="order-stat-content">
+            <h3>24</h3>
+            <p>Pending Orders</p>
+            <span class="stat-change negative">-8%</span>
+        </div>
+    </div>
+    <div class="order-stat-card">
+        <div class="order-stat-icon">
+            <i class="fas fa-truck"></i>
+        </div>
+        <div class="order-stat-content">
+            <h3>18</h3>
+            <p>In Transit</p>
+            <span class="stat-change positive">+5%</span>
+        </div>
+    </div>
+</section>
+
+<div class="orders-container">
+    <div class="orders-table-container">
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+                <!-- Populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="order-details-sidebar">
+        <div class="sidebar-header">
+            <h3>Order Details</h3>
+            <button class="btn-icon" id="closeOrderSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="order-details-content" id="orderDetails">
+            <div class="no-selection">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Select an order to view details</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="orders-charts">
+    <div class="orders-chart-card">
+        <h3>Orders Over Time</h3>
+        <div class="chart-container">
+            <canvas id="ordersOverTimeChart"></canvas>
+        </div>
+    </div>
+    <div class="orders-chart-card">
+        <h3>Order Status Distribution</h3>
+        <div class="chart-container">
+            <canvas id="orderStatusChart"></canvas>
+        </div>
+    </div>
+</div>

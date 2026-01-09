@@ -1,0 +1,122 @@
+<header class="header">
+    <h1>Advanced Analytics</h1>
+    <div class="analytics-controls">
+        <select id="analyticsPeriod">
+            <option value="30d">Last 30 Days</option>
+            <option value="90d">Last 90 Days</option>
+            <option value="1y">Last Year</option>
+        </select>
+        <select id="metricType">
+            <option value="revenue">Revenue</option>
+            <option value="users">Users</option>
+            <option value="conversion">Conversion Rate</option>
+        </select>
+        <button id="generateReport" class="btn-primary">
+            <i class="fas fa-download"></i> Export Report
+        </button>
+    </div>
+</header>
+
+<section class="analytics-grid">
+    <div class="analytics-card full-width">
+        <div class="card-header">
+            <h3>Performance Trends</h3>
+            <div class="card-actions">
+                <button class="btn-icon" title="Refresh">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+        <div class="chart-container">
+            <canvas id="performanceChart"></canvas>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <div class="card-header">
+            <h3>Top Products</h3>
+        </div>
+        <div class="top-list" id="topProducts">
+            <!-- Populated by JavaScript -->
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <div class="card-header">
+            <h3>Traffic Sources</h3>
+        </div>
+        <div class="chart-container">
+            <canvas id="trafficChart"></canvas>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <div class="card-header">
+            <h3>Conversion Funnel</h3>
+        </div>
+        <div class="funnel-container" id="conversionFunnel">
+            <!-- Populated by JavaScript -->
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <div class="card-header">
+            <h3>Geographic Distribution</h3>
+        </div>
+        <div class="geo-container">
+            <div class="geo-map">
+                <!-- Simple map visualization -->
+                <div class="map-placeholder">
+                    <i class="fas fa-globe-americas"></i>
+                    <p>Map Visualization</p>
+                </div>
+            </div>
+            <div class="geo-stats">
+                <div class="geo-stat">
+                    <span class="geo-label">North America</span>
+                    <span class="geo-value">45%</span>
+                </div>
+                <div class="geo-stat">
+                    <span class="geo-label">Europe</span>
+                    <span class="geo-value">30%</span>
+                </div>
+                <div class="geo-stat">
+                    <span class="geo-label">Asia</span>
+                    <span class="geo-value">20%</span>
+                </div>
+                <div class="geo-stat">
+                    <span class="geo-label">Other</span>
+                    <span class="geo-value">5%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <div class="card-header">
+            <h3>Key Metrics</h3>
+        </div>
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <span class="metric-label">Avg. Session Duration</span>
+                <span class="metric-value">4m 32s</span>
+                <span class="metric-change positive">+12%</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-label">Bounce Rate</span>
+                <span class="metric-value">32%</span>
+                <span class="metric-change negative">-5%</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-label">Pages/Session</span>
+                <span class="metric-value">5.2</span>
+                <span class="metric-change positive">+8%</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-label">Conversion Rate</span>
+                <span class="metric-value">3.8%</span>
+                <span class="metric-change positive">+15%</span>
+            </div>
+        </div>
+    </div>
+</section>

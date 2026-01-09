@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogiTrack - Getting Started</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #4361ee;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            color: #4361ee;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #4361ee;
+            padding-bottom: 10px;
+        }
+
+        .intro-box {
+            background: #eef2ff;
+            border-left: 5px solid #4361ee;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .intro-box p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .credentials {
+            background: #f0f9ff;
+            border: 2px solid #4cc9f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .credentials strong {
+            color: #0066cc;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.15);
+            border-color: #4361ee;
+        }
+
+        .feature-card h3 {
+            color: #4361ee;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .steps {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid #ffc107;
+        }
+
+        .step {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ffe69c;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .step strong {
+            color: #856404;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #4361ee;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #3a56d4;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #4361ee;
+            border: 2px solid #4361ee;
+        }
+
+        .btn-secondary:hover {
+            background: #eef2ff;
+        }
+
+        .database-info {
+            background: #e7f5ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #4cc9f0;
+            margin-bottom: 20px;
+        }
+
+        .database-info h3 {
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+
+        .database-info ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .database-info li {
+            margin-bottom: 5px;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            font-weight: 600;
+            color: #4361ee;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚚 Welcome to LogiTrack</h1>
+        
+        <div class="intro-box">
+            <p><strong>A Complete Logistics Management Dashboard</strong></p>
+            <p>Manage shipments, orders, drivers, vehicles, and analytics all in one place!</p>
+            <p>This is a fully functional logistics management system with built-in database, authentication, and advanced features.</p>
+        </div>
+
+        <h2>🚀 Quick Start</h2>
+        <div class="steps">
+            <div class="step">
+                <strong>Step 1:</strong> Open the <code>index.html</code> file in your web browser
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Login with demo credentials (see below)
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Explore the dashboard and create shipments, orders, drivers, and vehicles
+            </div>
+            <div class="step">
+                <strong>Step 4:</strong> View analytics and reports to track your logistics operations
+            </div>
+        </div>
+
+        <h2>🔐 Login Credentials</h2>
+        <div class="credentials">
+            <p><strong>Demo Account:</strong></p>
+            <p>Email: <strong>admin@logitrack.com</strong></p>
+            <p>Password: <strong>password123</strong></p>
+            <p style="margin-top: 15px;"><em>Or create your own account by clicking "Create Account"</em></p>
+        </div>
+
+        <h2>✨ Main Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon">📦</div>
+                <h3>Shipments</h3>
+                <p>Create, track, and manage all your shipments with real-time status updates</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📋</div>
+                <h3>Orders</h3>
+                <p>Manage customer orders with amounts, items, and delivery tracking</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">👨‍✈️</div>
+                <h3>Drivers</h3>
+                <p>Add and manage drivers with license information and availability status</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🚗</div>
+                <h3>Vehicles</h3>
+                <p>Track vehicles, capacity, and assign them to drivers</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Analytics</h3>
+                <p>View detailed charts and reports on your logistics performance</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">⚙️</div>
+                <h3>Settings</h3>
+                <p>Configure company info and manage notification preferences</p>
+            </div>
+        </div>
+
+        <h2>💾 Database & Data Storage</h2>
+        <div class="database-info">
+            <h3>LocalStorage Database</h3>
+            <p>All data is stored locally in your browser using LocalStorage. This means:</p>
+            <ul>
+                <li>✅ Data persists between sessions</li>
+                <li>✅ No server required</li>
+                <li>✅ Fast performance</li>
+                <li>✅ Full data control</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Pre-loaded Sample Data:</strong></p>
+            <ul>
+                <li>3 sample users</li>
+                <li>4 sample shipments</li>
+                <li>4 sample orders</li>
+                <li>3 sample drivers</li>
+                <li>3 sample vehicles</li>
+            </ul>
+        </div>
+
+        <h2>🛠️ Technology Stack</h2>
+        <div class="tech-stack">
+            <div class="tech-item">HTML5</div>
+            <div class="tech-item">CSS3</div>
+            <div class="tech-item">JavaScript</div>
+            <div class="tech-item">Chart.js</div>
+            <div class="tech-item">Font Awesome</div>
+            <div class="tech-item">LocalStorage</div>
+        </div>
+
+        <h2>📂 File Structure</h2>
+        <pre style="background: #f5f5f5; padding: 15px; border-radius: 8px; overflow-x: auto;">
+dashboard-project/
+├── index.html              # Main file - open this!
+├── styles/
+│   └── main.css           # All styling
+├── scripts/
+│   └── main.js            # Core functionality
+├── data/
+│   └── database.js        # Database & storage
+└── README.md              # Documentation
+        </pre>
+
+        <h2>📖 What You Can Do</h2>
+        <div style="background: #f0f7ff; padding: 20px; border-radius: 8px; border-left: 5px solid #4361ee;">
+            <h3 style="color: #4361ee; margin-bottom: 15px;">✅ Fully Functional Features:</h3>
+            <ul style="margin-left: 20px;">
+                <li>Create new shipments with customer details</li>
+                <li>Track shipment status (Pending, Processing, In Transit, Delivered, Cancelled)</li>
+                <li>Create and manage customer orders</li>
+                <li>Add drivers with license information</li>
+                <li>Register vehicles and assign to drivers</li>
+                <li>View interactive charts and analytics</li>
+                <li>Manage system users and roles</li>
+                <li>Filter and search shipments</li>
+                <li>View KPI dashboard with real-time metrics</li>
+                <li>Generate analytics reports</li>
+            </ul>
+        </div>
+
+        <h2>🎯 Next Steps</h2>
+        <div class="steps">
+            <div class="step">
+                <strong>1. Start Using:</strong> Open index.html and start managing your logistics
+            </div>
+            <div class="step">
+                <strong>2. Create Data:</strong> Add your first shipment, order, or driver
+            </div>
+            <div class="step">
+                <strong>3. Explore Analytics:</strong> Go to Analytics page to see charts and reports
+            </div>
+            <div class="step">
+                <strong>4. Customize:</strong> Edit colors, add fields, or extend features as needed
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="window.location.href='index.html'">
+                🚀 Open Dashboard Now
+            </button>
+            <button class="btn btn-secondary" onclick="alert('Check the README.md file for detailed documentation')">
+                📖 Read Documentation
+            </button>
+        </div>
+
+        <div class="footer">
+            <p><strong>LogiTrack v1.0.0</strong> - Logistics Management Dashboard</p>
+            <p>All data is stored locally in your browser. No external server is required.</p>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #999;">
+                Created January 2026 | Built with HTML5, CSS3, and JavaScript
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!-- Header -->
+<header class="header">
+    <h1>Dashboard Overview</h1>
+    <div class="date-filter">
+        <select id="periodSelect">
+            <option value="week">Last 7 Days</option>
+            <option value="month" selected>Last 30 Days</option>
+            <option value="quarter">Last Quarter</option>
+            <option value="year">Last Year</option>
+        </select>
+        <button id="applyFilter">
+            <i class="fas fa-filter"></i> Apply Filter
+        </button>
+    </div>
+</header>
+
+<!-- Stats Cards -->
+<section class="stats-container">
+    <div class="stat-card">
+        <div class="stat-icon icon-revenue">
+            <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="stat-content">
+            <h3 id="revenue">$24,580</h3>
+            <p>Total Revenue</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon icon-users">
+            <i class="fas fa-user-friends"></i>
+        </div>
+        <div class="stat-content">
+            <h3 id="users">1,842</h3>
+            <p>Active Users</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon icon-orders">
+            <i class="fas fa-shopping-bag"></i>
+        </div>
+        <div class="stat-content">
+            <h3 id="orders">324</h3>
+            <p>New Orders</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon icon-growth">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="stat-content">
+            <h3 id="growth">+12.5%</h3>
+            <p>Growth Rate</p>
+        </div>
+    </div>
+</section>
+
+<!-- Charts -->
+<section class="charts-container">
+    <div class="chart-card">
+        <div class="chart-header">
+            <h3>Revenue Overview</h3>
+            <select id="revenueType">
+                <option value="monthly">Monthly</option>
+                <option value="weekly">Weekly</option>
+            </select>
+        </div>
+        <div class="chart-container">
+            <canvas id="revenueChart"></canvas>
+        </div>
+    </div>
+    <div class="chart-card">
+        <div class="chart-header">
+            <h3>User Activity</h3>
+            <select id="activityType">
+                <option value="sessions">Sessions</option>
+                <option value="pageviews">Pageviews</option>
+            </select>
+        </div>
+        <div class="chart-container">
+            <canvas id="activityChart"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- Data Table -->
+<section class="table-card">
+    <div class="table-header">
+        <h3>Recent Orders</h3>
+        <a href="#" onclick="router.navigate('orders')" class="view-all-btn">
+            View All <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="ordersTable">
+            <!-- Table rows will be populated by JavaScript -->
+        </tbody>
+    </table>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>Interactive Dashboard &copy; <span id="currentYear"></span> AnalyticsPro. All rights reserved.</p>
+    <p>Last updated: <span id="currentDate"></span></p>
+</footer>
