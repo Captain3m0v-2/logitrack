@@ -37,6 +37,15 @@ class LogisticsDatabase {
                         role: 'Driver',
                         status: 'active',
                         lastLogin: new Date(Date.now() - 7200000).toISOString()
+                    },
+                    {
+                        id: 'USR004',
+                        name: 'Office Employee',
+                        email: 'employee@logitrack.com',
+                        password: 'password123',
+                        role: 'Office Employee',
+                        status: 'active',
+                        lastLogin: new Date().toISOString()
                     }
                 ],
                 shipments: [

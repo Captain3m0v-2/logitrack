@@ -75,7 +75,57 @@ function showDashboard() {
     document.getElementById('currentUserName').textContent = currentUser.name;
     
     setupNavigation();
+    setupRoleBasedAccess();
     loadDashboard();
+}
+
+// ===== ROLE-BASED ACCESS CONTROL =====
+function setupRoleBasedAccess() {
+    const role = currentUser.role;
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    navLinks.forEach(link => {
+        const page = link.dataset.page;
+        
+        // Show/hide based on role
+        if (role === 'Admin') {
+            link.style.display = 'flex'; // Admin sees everything
+        } else if (role === 'Office Employee') {
+            // Office Employee can see: dashboard, orders, shipments, analytics
+            if (['dashboard', 'orders', 'shipments', 'analytics'].includes(page)) {
+                link.style.display = 'flex';
+            } else {
+                link.style.display = 'none';
+            }
+        } else if (role === 'Manager') {
+            // Manager can see: dashboard, orders, shipments, drivers, vehicles, analytics
+            if (['dashboard', 'orders', 'shipments', 'drivers', 'vehicles', 'analytics'].includes(page)) {
+                link.style.display = 'flex';
+            } else {
+                link.style.display = 'none';
+            }
+        } else if (role === 'Driver') {
+            // Driver can see: dashboard, shipments only
+            if (['dashboard', 'shipments'].includes(page)) {
+                link.style.display = 'flex';
+            } else {
+                link.style.display = 'none';
+            }
+        }
+    });
+
+    // Add role badge to header
+    const header = document.querySelector('.sidebar-header');
+    if (header) {
+        let roleBadge = header.querySelector('.role-badge');
+        if (!roleBadge) {
+            roleBadge = document.createElement('div');
+            roleBadge.className = 'role-badge';
+            roleBadge.style.cssText = 'font-size: 0.75rem; background: #7209b7; color: white; padding: 4px 8px; border-radius: 4px; margin-top: 8px; text-align: center;';
+            header.appendChild(roleBadge);
+        }
+        roleBadge.textContent = role;
+    }
 }
 
 // ===== NAVIGATION =====
