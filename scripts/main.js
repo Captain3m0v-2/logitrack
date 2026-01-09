@@ -79,6 +79,19 @@ function showDashboard() {
     
     document.getElementById('currentUserName').textContent = currentUser.name;
     
+    // Update header greeting with role-based icon and text
+    const roleIcons = {
+        'Admin': 'fas fa-crown',
+        'Manager': 'fas fa-briefcase',
+        'Office Employee': 'fas fa-file-alt',
+        'Driver': 'fas fa-truck',
+        'Warehouse Staff': 'fas fa-warehouse'
+    };
+    
+    const greeting = `Welcome, ${currentUser.name}!`;
+    document.getElementById('greetingText').textContent = greeting;
+    document.getElementById('roleIcon').className = roleIcons[currentUser.role] || 'fas fa-user';
+    
     setupNavigation();
     setupRoleBasedAccess();
     loadDashboard();
@@ -231,10 +244,10 @@ function loadEmployeeDashboard() {
     document.getElementById('kpiShipments').textContent = inTransitShipments;
     document.getElementById('kpiPendingOrders').textContent = pendingOrders + processingOrders;
     
-    // Calculate total revenue
-    const totalRevenue = orders.reduce((sum, o) => sum + o.amount, 0);
-    document.getElementById('kpiRevenue').textContent = '$' + totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2 });
+    // Hide revenue card for office employee
+    document.getElementById('revenueCard').style.display = 'none';
     
+    // Set delivery to Active
     document.getElementById('kpiDelivery').textContent = 'Active';
 
     loadRecentShipments();

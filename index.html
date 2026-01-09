@@ -133,6 +133,10 @@
                     <input type="text" id="searchInput" placeholder="Search shipments, orders, drivers...">
                 </div>
                 <div class="header-actions">
+                    <div id="userGreeting" style="display: flex; align-items: center; gap: 10px; margin-right: 20px; padding: 8px 15px; background: #f0f0f0; border-radius: 20px;">
+                        <i id="roleIcon" class="fas fa-user" style="font-size: 1.2rem; color: #4361ee;"></i>
+                        <span id="greetingText" style="font-weight: 500; color: #333;">Welcome</span>
+                    </div>
                     <button class="btn-icon" title="Notifications">
                         <i class="fas fa-bell"></i>
                         <span class="badge">5</span>
@@ -177,7 +181,7 @@
                             </div>
                         </div>
 
-                        <div class="kpi-card">
+                        <div class="kpi-card" id="revenueCard">
                             <div class="kpi-icon revenue-icon">
                                 <i class="fas fa-dollar-sign"></i>
                             </div>
