@@ -96,8 +96,9 @@ function setupRoleBasedAccess() {
         if (role === 'Admin') {
             link.style.display = 'flex'; // Admin sees everything
         } else if (role === 'Office Employee') {
-            // Office Employee can see: dashboard, orders, shipments, analytics
-            if (['dashboard', 'orders', 'shipments', 'analytics'].includes(page)) {
+            // Office Employee can ONLY see: dashboard, orders, shipments
+            // They manage customer orders and track shipments
+            if (['dashboard', 'orders', 'shipments'].includes(page)) {
                 link.style.display = 'flex';
             } else {
                 link.style.display = 'none';
@@ -198,6 +199,12 @@ function switchPage(pageName) {
 
 // ===== DASHBOARD PAGE =====
 function loadDashboard() {
+    // Different dashboard for Office Employee
+    if (currentUser.role === 'Office Employee') {
+        loadEmployeeDashboard();
+        return;
+    }
+
     const stats = db.getStatistics();
     
     document.getElementById('kpiShipments').textContent = stats.activeShipments;
@@ -209,6 +216,32 @@ function loadDashboard() {
 
     loadRecentShipments();
     initializeDashboardCharts();
+}
+
+function loadEmployeeDashboard() {
+    // Simplified dashboard for Office Employee
+    const orders = db.getOrders();
+    const shipments = db.getShipments();
+    
+    // Show only relevant KPIs
+    const pendingOrders = orders.filter(o => o.status === 'pending').length;
+    const processingOrders = orders.filter(o => o.status === 'processing').length;
+    const inTransitShipments = shipments.filter(s => s.status === 'in-transit').length;
+    
+    document.getElementById('kpiShipments').textContent = inTransitShipments;
+    document.getElementById('kpiPendingOrders').textContent = pendingOrders + processingOrders;
+    
+    // Calculate total revenue
+    const totalRevenue = orders.reduce((sum, o) => sum + o.amount, 0);
+    document.getElementById('kpiRevenue').textContent = '$' + totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2 });
+    
+    document.getElementById('kpiDelivery').textContent = 'Active';
+
+    loadRecentShipments();
+    // Don't show charts for employee - keep it simple
+    document.querySelectorAll('.chart-card').forEach(chart => {
+        chart.style.display = 'none';
+    });
 }
 
 function loadRecentShipments() {
